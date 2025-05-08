@@ -1,0 +1,38 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Compliment Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <h1>Get Your Compliment</h1>
+    <form id="complimentForm">
+        <input type="text" id="name" placeholder="Your Name" required>
+        <select id="mood">
+            <option value="happy">Happy</option>
+            <option value="sad">Sad</option>
+            <option value="tired">Tired</option>
+        </select>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+<script>
+    document.getElementById('complimentForm').onsubmit = async function (e) {
+        e.preventDefault();
+        const name = document.getElementById('name').value;
+        const mood = document.getElementById('mood').value;
+        const res = await fetch('http://localhost:8080/api/compliment', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, mood })
+        });
+        const message = await res.text();
+        localStorage.setItem('compliment', message);
+        window.location.href = 'compliment.html';
+    }
+</script>
+</body>
+</html>

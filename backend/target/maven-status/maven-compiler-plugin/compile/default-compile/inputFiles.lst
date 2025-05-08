@@ -1,0 +1,5 @@
+/home/ubuntu/Day9-30/backend/src/main/java/com/example/compliment/controller/ComplimentController.java
+/home/ubuntu/Day9-30/backend/src/main/java/com/example/compliment/repository/ComplimentRepository.java
+/home/ubuntu/Day9-30/backend/src/main/java/com/example/compliment/model/UserRequest.java
+/home/ubuntu/Day9-30/backend/src/main/java/com/example/compliment/ComplimentGeneratorApplication.java
+/home/ubuntu/Day9-30/backend/src/main/java/com/example/compliment/model/Compliment.java

@@ -1,36 +1,29 @@
-const Register = import('../models/registerModel');
+import { insertVisitor, fetchVisitorsInside } from '../models/registerModel.js';
 
-exports.registerEntry = (req, res) => {
-  const { name, age, visiting_to, in_time, out_time } = req.body;
+export const registerVisitor = async (req, res) => {
+  const { name, age, visitingTo, inTime, outTime } = req.body;
 
-  if (!name || !age || !visiting_to || !in_time) {
-    return res.status(400).json({ msg: 'Missing required fields' });
+  if (!name || !age || !visitingTo || !inTime || !outTime) {
+    return res.status(400).json({ message: 'All fields are required.' });
   }
 
-  Register.findConflict({ name, age, in_time }, (err, rows) => {
-    if (err) return res.status(500).json(err);
-
-    if (rows.length > 0) {
-      return res.status(400).json({ msg: 'Conflict: Entry already exists' });
+  try {
+    const result = await insertVisitor({ name, age, visitingTo, inTime, outTime });
+    res.status(201).json({ message: 'Visitor registered successfully.', id: result.insertId });
+  } catch (error) {
+    if (error.code === 'ER_DUP_ENTRY') {
+      res.status(409).json({ message: 'Visitor with same name and age already exists at this time.' });
+    } else {
+      res.status(500).json({ message: 'Server error.' });
     }
-
-    Register.create({ name, age, visiting_to, in_time, out_time }, (err, result) => {
-      if (err) return res.status(500).json(err);
-      res.status(201).json({ id: result.insertId, ...req.body });
-    });
-  });
+  }
 };
 
-exports.getAllEntries = (req, res) => {
-  Register.getAll((err, results) => {
-    if (err) return res.status(500).json(err);
-    res.json(results);
-  });
-};
-
-exports.getInside = (req, res) => {
-  Register.getInside((err, results) => {
-    if (err) return res.status(500).json(err);
-    res.json(results);
-  });
+export const getVisitorsInside = async (req, res) => {
+  try {
+    const visitors = await fetchVisitorsInside();
+    res.status(200).json(visitors);
+  } catch (error) {
+    res.status(500).json({ message: 'Server error.' });
+  }
 };

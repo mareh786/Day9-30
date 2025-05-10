@@ -1,25 +1,19 @@
-const db = import('../db');
+import pool from '../db.js';
 
-const Register = {
-  findConflict: (data, cb) => {
-    db.query(
-      'SELECT * FROM entries WHERE name = ? AND age = ? AND in_time = ?',
-      [data.name, data.age, data.in_time],
-      cb
-    );
-  },
-
-  create: (data, cb) => {
-    db.query('INSERT INTO entries SET ?', data, cb);
-  },
-
-  getAll: (cb) => {
-    db.query('SELECT * FROM entries', cb);
-  },
-
-  getInside: (cb) => {
-    db.query('SELECT * FROM entries WHERE out_time IS NULL OR out_time = ""', cb);
-  }
+export const insertVisitor = async ({ name, age, visitingTo, inTime, outTime }) => {
+  const sql = `
+    INSERT INTO visitors (name, age, visiting_to, in_time, out_time)
+    VALUES (?, ?, ?, ?, ?)
+  `;
+  const [result] = await pool.execute(sql, [name, age, visitingTo, inTime, outTime]);
+  return result;
 };
 
-module.exports = Register;
+export const fetchVisitorsInside = async () => {
+  const sql = `
+    SELECT * FROM visitors
+    WHERE NOW() BETWEEN in_time AND out_time
+  `;
+  const [rows] = await pool.execute(sql);
+  return rows;
+};

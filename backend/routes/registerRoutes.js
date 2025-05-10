@@ -1,9 +1,9 @@
-const express = import('express');
+import express from 'express';
+import { registerVisitor, getVisitorsInside } from '../controllers/registerController.js';
+
 const router = express.Router();
-const controller = require('../controllers/registerController');
 
-router.post('/register', controller.registerEntry);
-router.get('/entries', controller.getAllEntries);
-router.get('/inside', controller.getInside);
+router.post('/', registerVisitor);
+router.get('/inside', getVisitorsInside);
 
-module.exports = router;
+export default router;

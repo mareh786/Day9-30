@@ -1,12 +1,13 @@
-CREATE DATABASE registerdb;
+import mysql from 'mysql2/promise';
+import dotenv from 'dotenv';
 
-USE registerdb;
+dotenv.config();
 
-CREATE TABLE entries (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(100),
-  age INT,
-  visiting_to VARCHAR(100),
-  in_time VARCHAR(50),
-  out_time VARCHAR(50)
-);
+const pool = mysql.createPool({
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME
+});
+
+export default pool;

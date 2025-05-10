@@ -1,4 +1,4 @@
-const db = require('../db');
+const db = import('../db');
 
 const Register = {
   findConflict: (data, cb) => {

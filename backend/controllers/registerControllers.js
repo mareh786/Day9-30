@@ -1,4 +1,4 @@
-const Register = require('../models/registerModel');
+const Register = import('../models/registerModel');
 
 exports.registerEntry = (req, res) => {
   const { name, age, visiting_to, in_time, out_time } = req.body;

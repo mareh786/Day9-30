@@ -1,0 +1,24 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book Genre Selector</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <nav>
+    <ul>
+      <li onclick="getBooks('fiction')">Fiction</li>
+      <li onclick="getBooks('non-fiction')">Non-Fiction</li>
+      <li onclick="getBooks('self-help')">Self-Help</li>
+    </ul>
+  </nav>
+  <section class="quote">
+    <h1 id="quote">"Loading motivational quote..."</h1>
+  </section>
+  <section id="book-list"></section>
+  <script src="app.js"></script>
+</body>
+</html>

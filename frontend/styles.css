@@ -1,0 +1,24 @@
+
+body {
+  background-color: #000;
+  color: #ffeb3b;
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+}
+nav ul {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  background-color: #ff0;
+  padding: 10px;
+}
+nav ul li {
+  margin: 0 15px;
+  cursor: pointer;
+}
+.quote {
+  text-align: center;
+  padding: 20px;
+  color: #fefc4f;
+}

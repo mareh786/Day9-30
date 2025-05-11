@@ -38,7 +38,7 @@ jobs:
 
     - name: Import schema
       run: |
-          mysql -h127.0.0.1 -uroot -ppassword123 bookdb < setup.sql
+          mysql -h127.0.0.1 -uroot -padmin bookdb < setup.sql
     - name: running Backend
       run: |
             cd backend

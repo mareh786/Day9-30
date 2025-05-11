@@ -29,13 +29,23 @@ jobs:
       uses: actions/setup-python@v3
       with:
         python-version: '3'
-    # - name: running Backend
-    #   run: |
-    #         cd backend
-    #         npm install
-    #         npm start
+    - name: Wait for MySQL to be ready
+      run: |
+          until mysqladmin ping -h "127.0.0.1" -uroot -padmin --silent; do
+            echo "Waiting for database..."
+            sleep 5
+          done
 
-    # - name: Running Frontend
-    #   run: |
-    #         cd frontend
-    #         python3 -m http.server 8000
+    - name: Import schema
+      run: |
+          mysql -h127.0.0.1 -uroot -ppassword123 bookdb < setup.sql
+    - name: running Backend
+      run: |
+            cd backend
+            npm install
+            npm start
+
+    - name: Running Frontend
+      run: |
+            cd frontend
+            python3 -m http.server 8000

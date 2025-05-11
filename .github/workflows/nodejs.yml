@@ -49,4 +49,9 @@ jobs:
     - name: Running Frontend
       run: |
             cd frontend
-            python3 -m http.server 8000
+            nohup python3 -m http.server 8000 > frontend.log 2>&1 &
+            echo "Frontend started"
+    - name: Sleep for 10 seconds
+      run: |
+            echo "Waiting 10 seconds to simulate runtime..."
+            sleep 10
